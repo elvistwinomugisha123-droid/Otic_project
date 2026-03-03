@@ -1,0 +1,100 @@
+---
+title: Otic IT Support Agent — System Architecture
+---
+flowchart TB
+    subgraph USER_LAYER["👤 User Interface"]
+        UI[Streamlit Chat UI]
+        OBS[Observability Panel<br/>Tool Calls · Reasoning · Traces]
+    end
+
+    subgraph SAFETY_LAYER["🛡️ Safety Layer"]
+        PI[Prompt Injection<br/>Detector]
+        AG[Action Gate<br/>Confirmation Required]
+        DF[Data Filter<br/>Strip Sensitive Info]
+    end
+
+    subgraph AGENT_CORE["🧠 Agent Core — ReAct Loop"]
+        direction TB
+        THOUGHT["💭 THOUGHT<br/>Reason about the problem"]
+        ACTION["⚡ ACTION<br/>Select tool + parameters"]
+        OBSERVE["👁️ OBSERVATION<br/>Process tool output"]
+        REFLECT["🔄 REFLECTION<br/>Answer or continue loop"]
+        
+        THOUGHT --> ACTION
+        ACTION --> OBSERVE
+        OBSERVE --> REFLECT
+        REFLECT -->|"Need more info"| THOUGHT
+    end
+
+    subgraph TOOLS["🔧 Tool Layer"]
+        T1["kb_search<br/>RAG Runbook Lookup"]
+        T2["log_search<br/>Application Logs"]
+        T3["server_metrics<br/>CPU/Mem/Disk/Net"]
+        T4["status_check<br/>Service Health"]
+        T5["create_ticket<br/>⚠️ Requires Confirmation"]
+    end
+
+    subgraph RAG_LAYER["📚 RAG Pipeline"]
+        EMB["Sentence Transformers<br/>all-MiniLM-L6-v2"]
+        VDB[(ChromaDB<br/>Vector Store)]
+        RB["Runbook Documents<br/>VPN · Disk · Web · Email · Services"]
+        
+        RB -->|"Index"| EMB
+        EMB -->|"Embeddings"| VDB
+    end
+
+    subgraph MEMORY_LAYER["💾 Memory"]
+        MEM[(SQLite DB<br/>Conversation History<br/>Incident Context)]
+    end
+
+    subgraph LLM_LAYER["🤖 LLM"]
+        CLAUDE["Claude Sonnet 4.5<br/>Anthropic API<br/>tool_use"]
+    end
+
+    subgraph TRACE["📊 Trace Collector"]
+        TR[Step Logger<br/>Timestamps · Inputs · Outputs<br/>Decisions · Errors]
+    end
+
+    %% Flow connections
+    UI -->|"User Message"| PI
+    PI -->|"Clean Input"| AGENT_CORE
+    PI -->|"❌ Injection Detected"| UI
+
+    AGENT_CORE <-->|"Reasoning"| CLAUDE
+    AGENT_CORE -->|"Tool Call"| TOOLS
+    TOOLS -->|"Result"| AGENT_CORE
+
+    T1 <-->|"Query/Results"| VDB
+    T5 -->|"Risky Action"| AG
+    AG -->|"User Confirms"| T5
+
+    AGENT_CORE <-->|"Load/Save Context"| MEM
+    REFLECT -->|"Final Answer"| DF
+    DF -->|"Safe Response"| UI
+
+    %% Observability
+    AGENT_CORE -.->|"Every Step"| TR
+    TOOLS -.->|"Call Logs"| TR
+    TR -.->|"Live Feed"| OBS
+
+    %% Memory filtering
+    DF -.->|"Filter before save"| MEM
+
+    %% Styling
+    classDef safety fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#991b1b
+    classDef agent fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
+    classDef tools fill:#d1fae5,stroke:#059669,stroke-width:2px,color:#064e3b
+    classDef rag fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef memory fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#312e81
+    classDef llm fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef ui fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#1e293b
+    classDef trace fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+
+    class PI,AG,DF safety
+    class THOUGHT,ACTION,OBSERVE,REFLECT agent
+    class T1,T2,T3,T4,T5 tools
+    class EMB,VDB,RB rag
+    class MEM memory
+    class CLAUDE llm
+    class UI,OBS ui
+    class TR trace

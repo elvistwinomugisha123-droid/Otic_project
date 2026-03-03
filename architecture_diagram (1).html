@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otic IT Support Agent — Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        .mermaid {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #334155;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 Otic IT Support Agent</h1>
+    <p class="subtitle">Agentic AI System Architecture — ReAct Pattern with Safety & Observability</p>
+
+    <div class="mermaid">
+flowchart TB
+    subgraph USER_LAYER["👤 User Interface"]
+        UI["Streamlit Chat UI"]
+        OBS["Observability Panel\nTool Calls · Reasoning · Traces"]
+    end
+
+    subgraph SAFETY_IN["🛡️ Input Safety"]
+        PI["Prompt Injection\nDetector"]
+    end
+
+    subgraph SAFETY_OUT["🛡️ Output Safety"]
+        AG["Action Gate\nConfirmation Required"]
+        DF["Data Filter\nStrip Sensitive Info"]
+    end
+
+    subgraph AGENT_CORE["🧠 Agent Core — ReAct Loop max 5 iterations"]
+        THOUGHT["💭 THOUGHT\nReason about the problem"]
+        ACTION["⚡ ACTION\nSelect tool + parameters"]
+        OBSERVE["👁️ OBSERVATION\nProcess tool output"]
+        REFLECT["🔄 REFLECTION\nAnswer or continue loop"]
+
+        THOUGHT --> ACTION
+        ACTION --> OBSERVE
+        OBSERVE --> REFLECT
+        REFLECT -->|"Need more info"| THOUGHT
+    end
+
+    subgraph TOOLS["🔧 Tool Layer"]
+        T1["kb_search\nRAG Runbook Lookup"]
+        T2["log_search\nApplication Logs"]
+        T3["server_metrics\nCPU/Mem/Disk/Net"]
+        T4["status_check\nService Health"]
+        T5["create_ticket\n⚠️ Requires Confirmation"]
+    end
+
+    subgraph RAG["📚 RAG Pipeline"]
+        EMB["Sentence Transformers\nall-MiniLM-L6-v2"]
+        VDB[("ChromaDB\nVector Store")]
+        RB["Runbook Documents\nVPN · Disk · Web\nEmail · Services"]
+
+        RB -->|"Index"| EMB
+        EMB -->|"Embeddings"| VDB
+    end
+
+    subgraph MEM_LAYER["💾 Memory"]
+        MEM[("SQLite DB\nConversation History\nIncident Context")]
+    end
+
+    subgraph LLM["🤖 LLM"]
+        CLAUDE["Claude Sonnet 4.5\nAnthropic API\ntool_use"]
+    end
+
+    subgraph TRACE["📊 Trace Collector"]
+        TR["Step Logger\nTimestamps · Inputs\nOutputs · Decisions"]
+    end
+
+    UI -->|"User Message"| PI
+    PI -->|"Clean Input"| AGENT_CORE
+    PI -->|"❌ Blocked"| UI
+
+    AGENT_CORE <-->|"Reasoning"| CLAUDE
+    ACTION -->|"Tool Call"| TOOLS
+    TOOLS -->|"Result"| OBSERVE
+
+    T1 <-->|"Query"| VDB
+    T5 -->|"Risky"| AG
+    AG -->|"Confirmed"| T5
+
+    AGENT_CORE <-->|"Context"| MEM
+
+    REFLECT -->|"Final Answer"| DF
+    DF -->|"Safe Response"| UI
+
+    AGENT_CORE -.->|"Every Step"| TR
+    TOOLS -.->|"Call Logs"| TR
+    TR -.->|"Live Feed"| OBS
+    DF -.->|"Filter"| MEM
+
+    classDef safety fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#991b1b
+    classDef agent fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a5f
+    classDef tools fill:#d1fae5,stroke:#059669,stroke-width:2px,color:#064e3b
+    classDef rag fill:#fef3c7,stroke:#d97706,stroke-width:2px,color:#78350f
+    classDef memory fill:#e0e7ff,stroke:#4f46e5,stroke-width:2px,color:#312e81
+    classDef llm fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px,color:#4c1d95
+    classDef ui fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#1e293b
+    classDef trace fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+
+    class PI,AG,DF safety
+    class THOUGHT,ACTION,OBSERVE,REFLECT agent
+    class T1,T2,T3,T4,T5 tools
+    class EMB,VDB,RB rag
+    class MEM memory
+    class CLAUDE llm
+    class UI,OBS ui
+    class TR trace
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#dbeafe;border:2px solid #2563eb"></div>Agent Core (ReAct)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fee2e2;border:2px solid #dc2626"></div>Safety Controls</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#d1fae5;border:2px solid #059669"></div>Tools</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fef3c7;border:2px solid #d97706"></div>RAG Pipeline</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e0e7ff;border:2px solid #4f46e5"></div>Memory</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f3e8ff;border:2px solid #7c3aed"></div>LLM</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fce7f3;border:2px solid #db2777"></div>Observability</div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            themeVariables: {
+                primaryColor: '#1e293b',
+                primaryTextColor: '#e2e8f0',
+                lineColor: '#64748b',
+                fontSize: '14px'
+            }
+        });
+    </script>
+</body>
+</html>

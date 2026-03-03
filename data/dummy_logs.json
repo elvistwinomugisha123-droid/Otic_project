@@ -1,0 +1,352 @@
+[
+  {
+    "timestamp": "2026-03-03T10:45:12Z",
+    "level": "CRITICAL",
+    "service": "smtp-relay",
+    "message": "Service failed to start: connection refused on port 587. Process exited with code 1.",
+    "source": "systemd"
+  },
+  {
+    "timestamp": "2026-03-03T10:42:33Z",
+    "level": "ERROR",
+    "service": "smtp-relay",
+    "message": "SMTP relay connection refused: unable to bind to port 587, address already in use",
+    "source": "postfix"
+  },
+  {
+    "timestamp": "2026-03-03T10:38:05Z",
+    "level": "ERROR",
+    "service": "app-server",
+    "message": "Request timeout after 30000ms on endpoint /api/reports. Client connection dropped.",
+    "source": "express"
+  },
+  {
+    "timestamp": "2026-03-03T10:35:44Z",
+    "level": "WARNING",
+    "service": "app-server",
+    "message": "Memory usage at 87.2% — approaching critical threshold. Consider restarting the service.",
+    "source": "resource-monitor"
+  },
+  {
+    "timestamp": "2026-03-03T10:33:18Z",
+    "level": "ERROR",
+    "service": "app-server",
+    "message": "Garbage collection pause exceeded 2000ms. Heap usage: 14.3GB / 16GB.",
+    "source": "node-runtime"
+  },
+  {
+    "timestamp": "2026-03-03T10:30:00Z",
+    "level": "CRITICAL",
+    "service": "database-server",
+    "message": "Disk usage at 94.3% on /var/lib/postgresql — approaching critical threshold. Write operations may fail.",
+    "source": "disk-monitor"
+  },
+  {
+    "timestamp": "2026-03-03T10:28:15Z",
+    "level": "WARNING",
+    "service": "database-server",
+    "message": "Slow query detected: SELECT * FROM audit_logs WHERE created_at > ... took 12.4 seconds",
+    "source": "postgresql"
+  },
+  {
+    "timestamp": "2026-03-03T10:25:02Z",
+    "level": "INFO",
+    "service": "web-server",
+    "message": "SSL certificate renewal successful. New certificate valid until 2026-06-03.",
+    "source": "certbot"
+  },
+  {
+    "timestamp": "2026-03-03T10:22:41Z",
+    "level": "WARNING",
+    "service": "web-server",
+    "message": "Response time exceeded 5000ms for /api/reports endpoint. Upstream app-server is slow.",
+    "source": "nginx"
+  },
+  {
+    "timestamp": "2026-03-03T10:20:00Z",
+    "level": "INFO",
+    "service": "monitoring-server",
+    "message": "Health check cycle completed. 6 healthy, 1 degraded, 1 down.",
+    "source": "health-checker"
+  },
+  {
+    "timestamp": "2026-03-03T10:15:23Z",
+    "level": "ERROR",
+    "service": "vpn-gateway",
+    "message": "Authentication failure for user jdoe@company.com: client certificate expired on 2026-02-28",
+    "source": "openvpn"
+  },
+  {
+    "timestamp": "2026-03-03T10:12:08Z",
+    "level": "INFO",
+    "service": "vpn-gateway",
+    "message": "User asmith@company.com connected successfully from 203.45.67.89",
+    "source": "openvpn"
+  },
+  {
+    "timestamp": "2026-03-03T10:10:55Z",
+    "level": "INFO",
+    "service": "file-server",
+    "message": "Backup job 'daily-incremental' completed successfully. 2.3GB transferred.",
+    "source": "backup-agent"
+  },
+  {
+    "timestamp": "2026-03-03T10:05:30Z",
+    "level": "WARNING",
+    "service": "email-server",
+    "message": "Mail queue depth at 847 messages. Normal baseline is under 200.",
+    "source": "postfix"
+  },
+  {
+    "timestamp": "2026-03-03T10:02:17Z",
+    "level": "ERROR",
+    "service": "email-server",
+    "message": "Failed to relay message to smtp-relay:587 — connection refused. Message deferred.",
+    "source": "postfix"
+  },
+  {
+    "timestamp": "2026-03-03T09:58:44Z",
+    "level": "INFO",
+    "service": "app-server",
+    "message": "Deployment v2.3.1 completed successfully. 4 instances running.",
+    "source": "deploy-agent"
+  },
+  {
+    "timestamp": "2026-03-03T09:55:12Z",
+    "level": "INFO",
+    "service": "app-server",
+    "message": "Deployment v2.3.1 starting. Rolling update across 4 instances.",
+    "source": "deploy-agent"
+  },
+  {
+    "timestamp": "2026-03-03T09:50:00Z",
+    "level": "INFO",
+    "service": "database-server",
+    "message": "Automated vacuum completed on table 'transactions'. Reclaimed 145MB.",
+    "source": "postgresql"
+  },
+  {
+    "timestamp": "2026-03-03T09:45:33Z",
+    "level": "WARNING",
+    "service": "app-server",
+    "message": "Connection pool utilization at 85% (170/200 connections). Consider increasing pool size.",
+    "source": "prisma"
+  },
+  {
+    "timestamp": "2026-03-03T09:40:22Z",
+    "level": "INFO",
+    "service": "web-server",
+    "message": "Upstream health check: app-server responding with elevated latency (2.8s avg).",
+    "source": "nginx"
+  },
+  {
+    "timestamp": "2026-03-03T09:35:11Z",
+    "level": "ERROR",
+    "service": "vpn-gateway",
+    "message": "TLS handshake failed for client 198.51.100.42: unsupported protocol version",
+    "source": "openvpn"
+  },
+  {
+    "timestamp": "2026-03-03T09:30:05Z",
+    "level": "INFO",
+    "service": "monitoring-server",
+    "message": "Alert triggered: database-server disk usage exceeded 90% threshold.",
+    "source": "alertmanager"
+  },
+  {
+    "timestamp": "2026-03-03T09:25:48Z",
+    "level": "INFO",
+    "service": "file-server",
+    "message": "User mrogers accessed shared folder /projects/Q1-reports. 15 files downloaded.",
+    "source": "samba"
+  },
+  {
+    "timestamp": "2026-03-03T09:20:00Z",
+    "level": "WARNING",
+    "service": "database-server",
+    "message": "Replication lag detected: standby is 45 seconds behind primary.",
+    "source": "postgresql"
+  },
+  {
+    "timestamp": "2026-03-03T09:15:37Z",
+    "level": "INFO",
+    "service": "vpn-gateway",
+    "message": "User bkimani@company.com connected successfully from 41.202.88.15",
+    "source": "openvpn"
+  },
+  {
+    "timestamp": "2026-03-03T09:10:22Z",
+    "level": "INFO",
+    "service": "email-server",
+    "message": "Daily mailbox quota report generated. 3 users above 80% quota utilization.",
+    "source": "dovecot"
+  },
+  {
+    "timestamp": "2026-03-03T09:05:14Z",
+    "level": "INFO",
+    "service": "web-server",
+    "message": "Log rotation completed. Archived 12 log files, freed 890MB disk space.",
+    "source": "logrotate"
+  },
+  {
+    "timestamp": "2026-03-03T09:00:00Z",
+    "level": "INFO",
+    "service": "monitoring-server",
+    "message": "Scheduled health check cycle started. Checking 8 services.",
+    "source": "health-checker"
+  },
+  {
+    "timestamp": "2026-03-03T08:45:33Z",
+    "level": "WARNING",
+    "service": "email-server",
+    "message": "Outbound email delivery delayed: average delivery time 8.2 minutes (threshold: 5 minutes).",
+    "source": "postfix"
+  },
+  {
+    "timestamp": "2026-03-03T08:30:19Z",
+    "level": "INFO",
+    "service": "app-server",
+    "message": "Scheduled task 'generate-monthly-reports' completed in 34 seconds.",
+    "source": "cron"
+  },
+  {
+    "timestamp": "2026-03-03T08:15:07Z",
+    "level": "INFO",
+    "service": "database-server",
+    "message": "Connection pool statistics: 42 active, 158 idle, 0 waiting. Pool healthy.",
+    "source": "pgbouncer"
+  },
+  {
+    "timestamp": "2026-03-03T08:00:00Z",
+    "level": "INFO",
+    "service": "file-server",
+    "message": "Nightly antivirus scan completed. 0 threats detected across 142,847 files.",
+    "source": "clamav"
+  },
+  {
+    "timestamp": "2026-03-03T07:45:22Z",
+    "level": "INFO",
+    "service": "web-server",
+    "message": "Cache purge completed for static assets. CDN cache invalidated.",
+    "source": "nginx"
+  },
+  {
+    "timestamp": "2026-03-03T07:30:00Z",
+    "level": "INFO",
+    "service": "monitoring-server",
+    "message": "Daily metrics summary: avg CPU 52%, avg memory 64%, avg disk 71% across all servers.",
+    "source": "prometheus"
+  },
+  {
+    "timestamp": "2026-03-03T06:00:00Z",
+    "level": "INFO",
+    "service": "database-server",
+    "message": "Nightly full backup completed successfully. Backup size: 12.7GB. Duration: 18 minutes.",
+    "source": "pg_dump"
+  },
+  {
+    "timestamp": "2026-03-03T05:30:45Z",
+    "level": "WARNING",
+    "service": "database-server",
+    "message": "Disk usage on /var/lib/postgresql reached 92%. Cleanup recommended.",
+    "source": "disk-monitor"
+  },
+  {
+    "timestamp": "2026-03-03T04:00:00Z",
+    "level": "INFO",
+    "service": "file-server",
+    "message": "Scheduled backup 'weekly-full' started. Estimating 45GB transfer.",
+    "source": "backup-agent"
+  },
+  {
+    "timestamp": "2026-03-02T23:15:00Z",
+    "level": "INFO",
+    "service": "web-server",
+    "message": "Traffic baseline: 1,247 requests/minute. Within normal range for Monday evening.",
+    "source": "nginx"
+  },
+  {
+    "timestamp": "2026-03-02T22:30:41Z",
+    "level": "ERROR",
+    "service": "app-server",
+    "message": "Unhandled exception in /api/customers/:id/history — TypeError: Cannot read property 'payments' of null",
+    "source": "express"
+  },
+  {
+    "timestamp": "2026-03-02T21:00:00Z",
+    "level": "INFO",
+    "service": "email-server",
+    "message": "Nightly mailbox maintenance completed. Expunged 2,341 deleted messages across 45 accounts.",
+    "source": "dovecot"
+  },
+  {
+    "timestamp": "2026-03-02T20:45:18Z",
+    "level": "WARNING",
+    "service": "vpn-gateway",
+    "message": "Concurrent VPN connections at 87/100 capacity. Consider scaling.",
+    "source": "openvpn"
+  },
+  {
+    "timestamp": "2026-03-02T19:30:00Z",
+    "level": "INFO",
+    "service": "monitoring-server",
+    "message": "Weekly report generated: 99.2% uptime across all services. 3 incidents this week.",
+    "source": "status-page"
+  },
+  {
+    "timestamp": "2026-03-02T18:22:05Z",
+    "level": "ERROR",
+    "service": "smtp-relay",
+    "message": "Outbound connection to gmail-smtp-in.l.google.com:25 timed out after 60 seconds.",
+    "source": "postfix"
+  },
+  {
+    "timestamp": "2026-03-02T17:00:00Z",
+    "level": "INFO",
+    "service": "app-server",
+    "message": "Deployment v2.3.0 completed successfully. All health checks passing.",
+    "source": "deploy-agent"
+  },
+  {
+    "timestamp": "2026-03-02T15:45:33Z",
+    "level": "WARNING",
+    "service": "web-server",
+    "message": "Rate limiting activated for IP 185.220.101.42: 500 requests in 60 seconds.",
+    "source": "nginx"
+  },
+  {
+    "timestamp": "2026-03-02T14:30:00Z",
+    "level": "INFO",
+    "service": "vpn-gateway",
+    "message": "VPN certificate renewal batch completed. 12 certificates renewed, 3 expiring in 7 days.",
+    "source": "cert-manager"
+  },
+  {
+    "timestamp": "2026-03-02T13:15:27Z",
+    "level": "ERROR",
+    "service": "database-server",
+    "message": "Query cancelled: statement timeout after 30 seconds on query affecting audit_logs table.",
+    "source": "postgresql"
+  },
+  {
+    "timestamp": "2026-03-02T12:00:00Z",
+    "level": "INFO",
+    "service": "monitoring-server",
+    "message": "Health check cycle completed. All 8 services reporting healthy.",
+    "source": "health-checker"
+  },
+  {
+    "timestamp": "2026-03-02T10:30:15Z",
+    "level": "WARNING",
+    "service": "email-server",
+    "message": "User jnakamura@company.com mailbox at 92% quota (4.6GB / 5.0GB).",
+    "source": "dovecot"
+  },
+  {
+    "timestamp": "2026-03-02T09:00:00Z",
+    "level": "INFO",
+    "service": "file-server",
+    "message": "Morning health check: all shared drives accessible, replication healthy.",
+    "source": "samba"
+  }
+]

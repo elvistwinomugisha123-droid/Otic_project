@@ -1,0 +1,69 @@
+{
+  "web-server": {
+    "name": "web-server",
+    "status": "healthy",
+    "uptime": "30d 0h 15m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 443,
+    "response_time_ms": 45
+  },
+  "app-server": {
+    "name": "app-server",
+    "status": "degraded",
+    "uptime": "5d 12h 0m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 8080,
+    "response_time_ms": 2800,
+    "message": "High response latency detected. Average response time 2800ms (threshold: 500ms)."
+  },
+  "database-server": {
+    "name": "database-server",
+    "status": "warning",
+    "uptime": "45d 0h 0m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 5432,
+    "response_time_ms": 120,
+    "message": "Disk usage critical at 94.3%. Write operations may fail if not addressed."
+  },
+  "vpn-gateway": {
+    "name": "vpn-gateway",
+    "status": "healthy",
+    "uptime": "15d 0h 0m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 1194,
+    "response_time_ms": 12
+  },
+  "email-server": {
+    "name": "email-server",
+    "status": "healthy",
+    "uptime": "20d 0h 0m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 993,
+    "response_time_ms": 85
+  },
+  "smtp-relay": {
+    "name": "smtp-relay",
+    "status": "down",
+    "uptime": "0d 0h 0m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 587,
+    "response_time_ms": null,
+    "message": "Connection refused. Service not responding on port 587. Last successful start: 2026-03-02T18:00:00Z."
+  },
+  "file-server": {
+    "name": "file-server",
+    "status": "healthy",
+    "uptime": "60d 0h 0m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 445,
+    "response_time_ms": 30
+  },
+  "monitoring-server": {
+    "name": "monitoring-server",
+    "status": "healthy",
+    "uptime": "90d 0h 0m",
+    "last_checked": "2026-03-03T10:20:00Z",
+    "port": 9090,
+    "response_time_ms": 22
+  }
+}
