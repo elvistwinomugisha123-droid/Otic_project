@@ -32,7 +32,7 @@ from tools.registry import execute_tool
 logger = logging.getLogger(__name__)
 
 MAX_REACT_ITERATIONS = 5
-DEFAULT_MODEL = "claude-sonnet-4-5-20250514"
+DEFAULT_MODEL = "claude-sonnet-4-5"
 DEFAULT_TEMPERATURE = 0.3
 DEFAULT_MAX_TOKENS = 1200
 
